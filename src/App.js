@@ -11,27 +11,25 @@ export default class App extends Component {
     }
 
     componentDidMount() {
-        const db = firebase.database()
+        const db = firebase.firestore()
 
-        var asdf = db.ref('messages')
-        console.log(asdf)
-        
-        db.ref("messages").on("value", snapshot => {
-            console.log('on message')
+        db.collection('messages').onSnapshot((snapshot) => {
             let messages = [];
             snapshot.forEach((msg) => {
-              messages.push(msg.val());
+              messages.push(msg.data());
             });
             this.setState({ messages });
-          });
+            console.log(messages)
+        })
+        
     }
 
     render() {
         return <div>
+            
             {this.state.messages.map(msg => {
             return <p>{msg.content}</p>
             })}
-            <h1>{this.state.messages}</h1>
         </div>
     }
 }
