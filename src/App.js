@@ -15,6 +15,7 @@ export default class App extends Component {
 
         var asdf = db.ref('messages')
         console.log(asdf)
+        
         db.ref("messages").on("value", snapshot => {
             console.log('on message')
             let messages = [];
